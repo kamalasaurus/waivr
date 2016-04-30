@@ -19,16 +19,26 @@ export default class CanvasComponent {
   }
 
   down(e) {
+    e.preventDefault();
     this.tapped = true;
     return false;
   }
 
   move(e) {
+    e.preventDefault();
     if (!this.tapped) return;
 
+    if (e.type === 'touchmove') {
+      var cX = e.touches[0].clientX;
+      var cY = e.touches[0].clientY;
+    } else {
+      var cX = e.clientX;
+      var cY = e.clientY;
+    }
+
     var rect   = this.canvas.getBoundingClientRect();
-    var x      = e.clientX - rect.left;
-    var y      = e.clientY - rect.top;
+    var x      = (cX - rect.left) / (rect.right - rect.left) * this.canvas.width;
+    var y      = (cY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
 
     if (!Number.isFinite(this.prevX) || !Number.isFinite(this.prevY)) {
       var pX = x;
@@ -49,6 +59,7 @@ export default class CanvasComponent {
   }
 
   up(e) {
+    e.preventDefault();
     this.tapped    = false;
     this.prevX     = null;
     this.prevY     = null;
@@ -61,6 +72,16 @@ export default class CanvasComponent {
     this.canvas            = element;
     this.context           = element.getContext('2d');
     this.context.lineWidth = 3;
+
+    // have to manually add touch events because mithril doesn't recognize them :(
+    // probably have to manually remove to prevent memory leak if someone spams
+    // refresh, but it's a really minor issue so (shrug), mithril doesn't have a
+    // remove hook that I can find easily
+    if ('ontouchstart' in window) {
+      element.addEventListener('touchstart', this.down.bind(this));
+      element.addEventListener('touchmove',  this.move.bind(this));
+      element.addEventListener('touchend',   this.up.bind(this));
+    }
   }
 
   clear() {
