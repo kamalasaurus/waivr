@@ -2,3 +2,11 @@
   margin: 0;
   padding: 0;
 }
+
+canvas.signature {
+  border: dashed 2px #ccc;
+  border-radius: 3px;
+  width: 400px;
+  height: 250px;
+}
+

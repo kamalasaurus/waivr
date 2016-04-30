@@ -1,7 +1,7 @@
 import m from 'mithril';
 
-import ExampleComponent from './example-component';
+import CanvasComponent from './canvas-component';
 
 m.route(document.body, '/', {
-  '/': new ExampleComponent()
+  '/': new CanvasComponent()
 });
