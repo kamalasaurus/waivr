@@ -18,6 +18,10 @@ export default class CanvasComponent {
     }
   }
 
+  getSignature() {
+    return this.signature;
+  }
+
   down(e) {
     e.preventDefault();
     this.tapped = true;
