@@ -1,4 +1,5 @@
-@import url('font-awesome.min.css');
+@import url('font-awesome.min.css'); /* make sure to add .fa.fa-XXX for it to work */
+@import url('twemoji-awesome.css'); /* make sure to add .twa.twa-XXX for it to work */
 
 * {
   margin: 0;
