@@ -67,7 +67,7 @@ export default class CanvasComponent {
     return false;
   }
 
-  draw(element, isInitialized, args) {
+  drawCanvas(element, isInitialized, args) {
     if (isInitialized) return;
     this.canvas            = element;
     this.context           = element.getContext('2d');
@@ -84,17 +84,33 @@ export default class CanvasComponent {
     }
   }
 
+  drawClear(element, isInitialized, args) {
+    if ('ontouchstart' in window) {
+      element.addEventListener('touchstart', this.clear.bind(this));
+    }
+  }
+
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.signature = null;
   }
 
   view(controller, args /*passed in as object when instantiated*/) {
-    return m('canvas.signature[width="400"][height="250"]', {
-      onmousedown: controller.down.bind(controller),
-      onmousemove: controller.move.bind(controller),
-      onmouseup:   controller.up.bind(controller),
-      config:      controller.draw.bind(controller)
-    });
+    return m('div.signature', [
+      m('div.placeholder', "x"),
+      m('canvas.signature[width="400"][height="250"]', {
+        onmousedown: controller.down.bind(controller),
+        onmousemove: controller.move.bind(controller),
+        onmouseup:   controller.up.bind(controller),
+        config:      controller.drawCanvas.bind(controller)
+      }),
+      m('div.clear-signature',  {
+        onmousedown: controller.clear.bind(controller),
+        config:      controller.drawClear.bind(controller)
+      }, [
+        m('div.fa.fa-times-circle-o')
+      ], " clear")
+    ]);
   }
 }
 
