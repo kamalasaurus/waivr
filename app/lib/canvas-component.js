@@ -2,8 +2,8 @@ import m from 'mithril';
 
 export default class CanvasComponent {
 
-  constructor() {
-    this.signature = null;
+  constructor(signature) {
+    this.signature = signature; //is an m.prop()
     this.canvas    = null;
     this.context   = null;
 
@@ -16,10 +16,6 @@ export default class CanvasComponent {
     this.controller = ()=> {
       return this;
     }
-  }
-
-  getSignature() {
-    return this.signature;
   }
 
   down(e) {
@@ -67,7 +63,7 @@ export default class CanvasComponent {
     this.tapped    = false;
     this.prevX     = null;
     this.prevY     = null;
-    this.signature = this.canvas.toDataURL('image/png');
+    this.signature(this.canvas.toDataURL('image/png'));
     return false;
   }
 
@@ -96,12 +92,14 @@ export default class CanvasComponent {
 
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.signature = null;
+    this.signature('');
   }
 
   view(controller, args /*passed in as object when instantiated*/) {
     return m('div.signature', [
-      m('div.placeholder', "x"),
+      m('div.placeholder', [
+        m('div.placeholder-line', "x")
+      ]),
       m('canvas.signature[width="400"][height="250"]', {
         onmousedown: controller.down.bind(controller),
         onmousemove: controller.move.bind(controller),
@@ -111,9 +109,7 @@ export default class CanvasComponent {
       m('div.clear-signature',  {
         onmousedown: controller.clear.bind(controller),
         config:      controller.drawClear.bind(controller)
-      }, [
-        m('div.fa.fa-times-circle-o')
-      ], " clear")
+      }, " clear")
     ]);
   }
 }

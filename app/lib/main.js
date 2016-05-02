@@ -1,7 +1,8 @@
 import m from 'mithril';
 
-import CanvasComponent from './canvas-component';
+import WaiverForm from './waiver-form';
 
 m.route(document.body, '/', {
-  '/': new CanvasComponent()
+  '/': new WaiverForm()
 });
+
