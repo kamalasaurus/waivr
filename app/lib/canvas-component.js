@@ -38,7 +38,7 @@ export default class CanvasComponent {
     var cX = isTouch ? : e.touches[0].clientX : e.clientX;
     var cY = isTouch ? : e.touches[0].clientY : e.clientY;
 
-    // position on canvas
+    // position on canvas, normalize for style size and declared size of canvas
     var x = (cX - rect.left) / (rect.right - rect.left) * this.canvas.width;
     var y = (cY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
 
