@@ -19,6 +19,7 @@ export default class CanvasComponent {
   }
 
   down(e) {
+    // prevent screen drag, enable drawing
     e.preventDefault();
     this.tapped = true;
     return false;
@@ -28,37 +29,37 @@ export default class CanvasComponent {
     e.preventDefault();
     if (!this.tapped) return;
 
-    if (e.type === 'touchmove') {
-      var cX = e.touches[0].clientX;
-      var cY = e.touches[0].clientY;
-    } else {
-      var cX = e.clientX;
-      var cY = e.clientY;
-    }
-
+    // starting conditions
+    var isTouch      = e.type === 'touchmove';
+    var isFirstTouch = (!Number.isFinite(this.prevX) || !Number.isFinite(this.prevY));
     var rect   = this.canvas.getBoundingClientRect();
-    var x      = (cX - rect.left) / (rect.right - rect.left) * this.canvas.width;
-    var y      = (cY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
 
-    if (!Number.isFinite(this.prevX) || !Number.isFinite(this.prevY)) {
-      var pX = x;
-      var pY = y;
-    } else {
-      var pX = this.prevX;
-      var pY = this.prevY;
-    }
+    // position on screen
+    var cX = isTouch ? : e.touches[0].clientX : e.clientX;
+    var cY = isTouch ? : e.touches[0].clientY : e.clientY;
 
+    // position on canvas
+    var x = (cX - rect.left) / (rect.right - rect.left) * this.canvas.width;
+    var y = (cY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
+
+    // previous position on canvas
+    var px = isFirstTouch ? x : this.prevX;
+    var py = isFirstTouch ? y : this.prevY;
+
+    // draw line from previous position to current position
     this.context.beginPath();
     this.context.moveTo(pX, pY);
     this.context.lineTo(x, y);
     this.context.stroke();
 
+    // set current value for the next previous value
     this.prevX = x;
     this.prevY = y;
     return false;
   }
 
   up(e) {
+    // disable drawing, clear conditions, write signature as image data in prop
     e.preventDefault();
     this.tapped    = false;
     this.prevX     = null;
@@ -69,6 +70,7 @@ export default class CanvasComponent {
 
   drawCanvas(element, isInitialized, args) {
     if (isInitialized) return;
+    // enable access to DOM element after rendering, configure context properties
     this.canvas            = element;
     this.context           = element.getContext('2d');
     this.context.lineWidth = 3;
@@ -85,12 +87,14 @@ export default class CanvasComponent {
   }
 
   drawClear(element, isInitialized, args) {
+    // enable touch interaction for clear button, might be simpler if it was button, not div
     if ('ontouchstart' in window) {
       element.addEventListener('touchstart', this.clear.bind(this));
     }
   }
 
   clear() {
+    // clear canvas contents, erase signature data
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.signature('');
   }
