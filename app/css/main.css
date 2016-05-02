@@ -5,7 +5,19 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: 'OpenSans', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+input {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-bottom: solid 1px #ccc;
+  display: block;
+}
+
+.button:hover {
+  cursor: pointer;
 }
 
 div.signature {
@@ -41,21 +53,21 @@ div.placeholder-line {
   border-bottom: solid 1px #333;
 }
 
+div.clear-container {
+  margin-top: 40px;
+  width: 100%;
+  text-align: right;
+}
+
 div.clear-signature {
-  position: relative;
+  display: inline-block;
   font-size: 24px;
   color: #ccc;
-  display: block;
-  text-align: left;
-  box-sizing: border-box;
-  padding-left: 40px;
-  margin-top: 40px;
   font-variant: small-caps;
   font-weight: bold;
 }
 
 div.clear-signature:hover {
-  cursor: pointer;
 }
 
 div.submit {

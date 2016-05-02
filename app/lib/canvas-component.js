@@ -2,7 +2,7 @@ import m from 'mithril';
 
 export default class CanvasComponent {
 
-  constructor(signature) {
+  constructor (signature) {
     this.signature = signature; //is an m.prop()
     this.canvas    = null;
     this.context   = null;
@@ -18,14 +18,14 @@ export default class CanvasComponent {
     }
   }
 
-  down(e) {
+  down (e) {
     // prevent screen drag, enable drawing
     e.preventDefault();
     this.tapped = true;
-    return false;
+    return this;
   }
 
-  move(e) {
+  move (e) {
     e.preventDefault();
     if (!this.tapped) return;
 
@@ -35,16 +35,16 @@ export default class CanvasComponent {
     var rect   = this.canvas.getBoundingClientRect();
 
     // position on screen
-    var cX = isTouch ? : e.touches[0].clientX : e.clientX;
-    var cY = isTouch ? : e.touches[0].clientY : e.clientY;
+    var cX = isTouch ? e.touches[0].clientX : e.clientX;
+    var cY = isTouch ? e.touches[0].clientY : e.clientY;
+
+    // previous position on canvas
+    var pX = isFirstTouch ? x : this.prevX;
+    var pY = isFirstTouch ? y : this.prevY;
 
     // position on canvas, normalize for style size and declared size of canvas
     var x = (cX - rect.left) / (rect.right - rect.left) * this.canvas.width;
     var y = (cY - rect.top) / (rect.bottom - rect.top) * this.canvas.height;
-
-    // previous position on canvas
-    var px = isFirstTouch ? x : this.prevX;
-    var py = isFirstTouch ? y : this.prevY;
 
     // draw line from previous position to current position
     this.context.beginPath();
@@ -55,20 +55,20 @@ export default class CanvasComponent {
     // set current value for the next previous value
     this.prevX = x;
     this.prevY = y;
-    return false;
+    return this;
   }
 
-  up(e) {
+  up (e) {
     // disable drawing, clear conditions, write signature as image data in prop
     e.preventDefault();
     this.tapped    = false;
     this.prevX     = null;
     this.prevY     = null;
     this.signature(this.canvas.toDataURL('image/png'));
-    return false;
+    return this;
   }
 
-  drawCanvas(element, isInitialized, args) {
+  drawCanvas (element, isInitialized, args) {
     if (isInitialized) return;
     // enable access to DOM element after rendering, configure context properties
     this.canvas            = element;
@@ -86,20 +86,21 @@ export default class CanvasComponent {
     }
   }
 
-  drawClear(element, isInitialized, args) {
+  drawClear (element, isInitialized, args) {
     // enable touch interaction for clear button, might be simpler if it was button, not div
     if ('ontouchstart' in window) {
       element.addEventListener('touchstart', this.clear.bind(this));
     }
   }
 
-  clear() {
+  clear () {
     // clear canvas contents, erase signature data
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.signature('');
+    return this;
   }
 
-  view(controller, args /*passed in as object when instantiated*/) {
+  view (controller, args /*passed in as object when instantiated*/) {
     return m('div.signature', [
       m('div.placeholder', [
         m('div.placeholder-line', "x")
@@ -110,10 +111,11 @@ export default class CanvasComponent {
         onmouseup:   controller.up.bind(controller),
         config:      controller.drawCanvas.bind(controller)
       }),
-      m('div.clear-signature',  {
-        onmousedown: controller.clear.bind(controller),
-        config:      controller.drawClear.bind(controller)
-      }, " clear")
+      m('div.clear-container', [
+        m('div.button.clear-signature',  {
+          onmousedown: controller.clear.bind(controller)
+        }, " clear")
+      ]),
     ]);
   }
 }
