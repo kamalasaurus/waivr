@@ -2,8 +2,8 @@ import m from 'mithril';
 
 export default class CanvasComponent {
 
-  constructor (signature) {
-    this.signature = signature; //is an m.prop()
+  constructor (opts = {}) {
+    this.signature = opts.signature; //is an m.prop()
     this.canvas    = null;
     this.context   = null;
 

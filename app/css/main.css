@@ -13,7 +13,6 @@ input {
   outline: none;
   box-shadow: none;
   border-bottom: solid 1px #ccc;
-  display: block;
 }
 
 .button:hover {

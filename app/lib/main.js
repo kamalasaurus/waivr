@@ -1,6 +1,9 @@
 import m from 'mithril';
-import WaiverForm from './waiver-form';
+import WaiverForm from './WaiverForm';
 
+// eventually of the form new Nav(new PageElement())
+// modals w/ query parameters
+// fix trailing question-mark
 m.route(document.body, '/', {
   '/': new WaiverForm()
 });
