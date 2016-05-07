@@ -9,14 +9,26 @@ import Nav from './page_elements/Nav';
 // modals should follow a query-parameter pattern.  Maybe have a default style application if
 // the route is provided through a query parameter?  What if a link is shared between the two?
 // needs to redirect to the appropriate client URL :/
+// so all mobile routes are base routes, since they are page oriented.  Have a ternary redirect
+// if client is a pc for the requisite forms.
+// Object.assign the modal routes if it's a PC
+// final line should be m.route(document.body, '/', routes);
 import WaiverForm from './forms/form_logic/WaiverForm';
 import ChildWaiverForm from './forms/form_logic/ChildWaiverForm';
 import SignUpForm from './forms/form_logic/SignUpForm';
 
 import WaiverFormContent from './forms/form_content/WaiverFormContent.json';
 
+//var isNotMobile = someConditional
+
+//var routes = { have conditional redirects in here };
+//var pcmodalroutes = {};
+
+//if (isNotMobile) Object.assign(routes, pcmodalroutes);
+//m.route(document.body, '/', routes);
+
+
 // modals w/ query parameters
-// have a page elements directory with nav, modal, landing
 // should have multiple navs depending on page type?
 // content pages directory?  Or landing pages directory?
 // fix trailing question-mark
