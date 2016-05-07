@@ -1,0 +1,33 @@
+[
+  {
+    "name": "firstname",
+    "type": "text",
+    "label": "first name"
+  },
+  {
+    "name": "lastname",
+    "type": "text",
+    "label": "last name"
+  },
+  {
+    "name": "email",
+    "type": "text",
+    "label": "email"
+  },
+  {
+    "name": "date",
+    "type": "date",
+    "label": "date"
+  },
+  {
+    "name": "consent",
+    "type": "checkbox",
+    "label": "long string of consenting language"
+  },
+  {
+    "name": "signature",
+    "type": "canvas",
+    "label": "signature"
+  }
+]
+

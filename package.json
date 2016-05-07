@@ -32,7 +32,8 @@
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
     "mongorito": "^2.0.0",
-    "nodemon": "^1.9.1"
+    "nodemon": "^1.9.1",
+    "pdfkit": "^0.7.2"
   },
   "jspm": {
     "directories": {
