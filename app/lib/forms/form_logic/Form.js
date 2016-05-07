@@ -31,19 +31,16 @@ export default class Form {
   }
 
   generateForm () {
+    // modify trailing elements via form.push, beginning elements via form.unshift
     let form = this.inputs;
-    //override end elements here / change submit button or something
     form.push(this.generateSubmit());
-    //override beginning elements
-    //form.unshift(element)
     return form;
   }
 
   submit () {
     const isValid = this.inputs.every((el) => el.isValid(); );
     const values = this.inputs.reduce((o, el)=> {
-      const val = o.getVal();
-      o[val.name] = val.value;
+      Object.assign(o, el.getVal());
       return o;
     }, {});
     isValid ? console.log(values) : console.log("invalid fields!");
@@ -54,3 +51,4 @@ export default class Form {
   }
 
 }
+

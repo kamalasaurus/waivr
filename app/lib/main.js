@@ -1,5 +1,5 @@
 import m from 'mithril';
-import Nav from './Nav';
+import Nav from './page_elements/Nav';
 
 // modals are better for forms on pc, but pages are better for mobile...
 // is there an optimization to explore?
@@ -7,12 +7,13 @@ import Nav from './Nav';
 // depending on the client?
 // yes, put the conditional on m.route(document.body, '/', {}); -> replicate routes to modals
 // modals should follow a query-parameter pattern.  Maybe have a default style application if
-// the route is provided through a query parameter?
-import WaiverForm from './form_logic/WaiverForm';
-import ChildWaiverForm from './form_logic/ChildWaiverForm';
-import SignUpForm from './form_logic/SignUpForm';
+// the route is provided through a query parameter?  What if a link is shared between the two?
+// needs to redirect to the appropriate client URL :/
+import WaiverForm from './forms/form_logic/WaiverForm';
+import ChildWaiverForm from './forms/form_logic/ChildWaiverForm';
+import SignUpForm from './forms/form_logic/SignUpForm';
 
-import WaiverFormContent from './form_content/WaiverFormContent.json';
+import WaiverFormContent from './forms/form_content/WaiverFormContent.json';
 
 // modals w/ query parameters
 // have a page elements directory with nav, modal, landing
