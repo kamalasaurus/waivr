@@ -41,6 +41,8 @@ export default class Form {
       Object.assign(o, el.getVal());
       return o;
     }, {});
+    // red outlines can be conditional, but the invalid printout might
+    // flip a flag which mutates the form to indicate invalidity?
     isValid ? console.log(values) : console.log("invalid fields!");
   }
 

@@ -1,5 +1,21 @@
 import m from 'mithril';
+
+// page elements
 import Nav from './page_elements/Nav';
+import Modal from './page_elements/Modal';
+import LandingPage from './page_elements/LandingPage';
+
+// page element content
+
+
+// forms
+import WaiverForm from './forms/form_logic/WaiverForm';
+import ChildWaiverForm from './forms/form_logic/ChildWaiverForm';
+import SignUpForm from './forms/form_logic/SignUpForm';
+
+// import the content inside the logic component, they might be 1 to 1...
+// form content
+import WaiverFormContent from './forms/form_content/WaiverFormContent.json';
 
 // modals are better for forms on pc, but pages are better for mobile...
 // is there an optimization to explore?
@@ -13,11 +29,6 @@ import Nav from './page_elements/Nav';
 // if client is a pc for the requisite forms.
 // Object.assign the modal routes if it's a PC
 // final line should be m.route(document.body, '/', routes);
-import WaiverForm from './forms/form_logic/WaiverForm';
-import ChildWaiverForm from './forms/form_logic/ChildWaiverForm';
-import SignUpForm from './forms/form_logic/SignUpForm';
-
-import WaiverFormContent from './forms/form_content/WaiverFormContent.json';
 
 //var isNotMobile = someConditional
 
