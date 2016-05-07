@@ -16,9 +16,7 @@ export default class CanvasComponent {
     this.prevX = null;
     this.prevY = null;
 
-    this.controller = ()=> {
-      return this;
-    }
+    this.controller = => this;
   }
 
   down (e) {

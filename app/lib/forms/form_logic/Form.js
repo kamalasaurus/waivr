@@ -17,9 +17,7 @@ export default class Form {
 
     this.inputs = fields.map(this.generateInput);
 
-    this.controller = ()=> {
-      return this;
-    }
+    this.controller = => this;
   }
 
   generateInput (opts) {

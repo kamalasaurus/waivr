@@ -6,9 +6,7 @@ export default class InputComponent {
     this.opts = opts;
     this.value = m.prop('');
 
-    this.controller = ()=> {
-      return this;
-    }
+    this.controller = => this;
   }
 
   isValid () {
