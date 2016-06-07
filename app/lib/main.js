@@ -27,6 +27,8 @@ import SignUpForm from './forms/form_logic/SignUpForm';
 // form content
 import WaiverFormContent from './forms/form_content/WaiverFormContent.json!';
 
+//m.route.mode = "pathname";
+
 // modals are better for forms on pc, but pages are better for mobile...
 // is there an optimization to explore?
 // login portal should be its own page; is there a way to render a modal
@@ -53,7 +55,7 @@ import WaiverFormContent from './forms/form_content/WaiverFormContent.json!';
 // should have multiple navs depending on page type?
 // content pages directory?  Or landing pages directory?
 // fix trailing question-mark
-m.route(document.body, '/', {
+m.route(document.getElementById('app'), '/', {
   '/':             new Nav([new LandingPage()]),
   '/waiver':       new Nav([new WaiverForm(WaiverFormContent)]),
   '/child_waiver': new Nav([new ChildWaiverForm(WaiverFormContent)]),

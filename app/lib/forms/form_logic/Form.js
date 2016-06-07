@@ -36,14 +36,16 @@ export default class Form {
   }
 
   submit () {
-    //const isValid = this.inputs.every((el) => el.isValid(); );
-    //const values = this.inputs.reduce((o, el) => {
-      //Object.assign(o, el.getVal());
-      //return o;
-    //}, {});
-    //// red outlines can be conditional, but the invalid printout might
-    //// flip a flag which mutates the form to indicate invalidity?
-    //isValid ? console.log(values) : console.log("invalid fields!");
+    const isValid = this.inputs.every((el) => {
+      return el.isValid();
+    });
+    const values = this.inputs.reduce((o, el) => {
+      Object.assign(o, el.getVal());
+      return o;
+    }, {});
+    // red outlines can be conditional, but the invalid printout might
+    // flip a flag which mutates the form to indicate invalidity?
+    isValid ? console.log(values) : console.log("invalid fields!");
   }
 
   view (controller, args) {
