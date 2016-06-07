@@ -15,16 +15,16 @@ export default class Form {
       'canvas': (opts) => { return new CanvasComponent(opts); }
     };
 
-    this.inputs = fields.map(this.generateInput);
+    this.inputs = fields.map(this.generateInput.bind(this));
 
-    this.controller = => this;
+    this.controller = () => this;
   }
 
   generateInput (opts) {
-    return this.inputMap[field['type']](opts);
+    return this.inputMap[opts['type']](opts);
   }
 
-  generateSumbit (text = "Submit") {
+  generateSubmit (text = "Submit") {
     return m('div.button.submit', {onclick: this.submit.bind(this)}, text);
   }
 
@@ -36,14 +36,14 @@ export default class Form {
   }
 
   submit () {
-    const isValid = this.inputs.every((el) => el.isValid(); );
-    const values = this.inputs.reduce((o, el)=> {
-      Object.assign(o, el.getVal());
-      return o;
-    }, {});
-    // red outlines can be conditional, but the invalid printout might
-    // flip a flag which mutates the form to indicate invalidity?
-    isValid ? console.log(values) : console.log("invalid fields!");
+    //const isValid = this.inputs.every((el) => el.isValid(); );
+    //const values = this.inputs.reduce((o, el) => {
+      //Object.assign(o, el.getVal());
+      //return o;
+    //}, {});
+    //// red outlines can be conditional, but the invalid printout might
+    //// flip a flag which mutates the form to indicate invalidity?
+    //isValid ? console.log(values) : console.log("invalid fields!");
   }
 
   view (controller, args) {

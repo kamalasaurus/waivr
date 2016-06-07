@@ -16,7 +16,7 @@ export default class CanvasComponent {
     this.prevX = null;
     this.prevY = null;
 
-    this.controller = => this;
+    this.controller = () => this;
   }
 
   down (e) {
@@ -106,7 +106,9 @@ export default class CanvasComponent {
   }
 
   getVal () {
-    return { (this.opts.name) : this.value() };
+    return {
+      [this.opts.name] : this.value()
+    };
   }
 
   view (controller, args /*passed in as object when instantiated*/) {

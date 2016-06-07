@@ -6,7 +6,7 @@ export default class InputComponent {
     this.opts = opts;
     this.value = m.prop('');
 
-    this.controller = => this;
+    this.controller = () => this;
   }
 
   isValid () {
@@ -14,11 +14,14 @@ export default class InputComponent {
   }
 
   getVal () {
-    return { this.opts.name : this.value() };
+    return {
+      [this.opts.name] : this.value()
+    };
   }
 
   view (controller, args) {
     const {type, placeholder, label} = controller.opts;
+    const name = controller.opts.name;
     let props = {onchange: m.withAttr('value', controller.value)};
 
     placeholder ? props[placeholder] = placeholder : void 0;

@@ -40,6 +40,7 @@
       "baseURL": "app"
     },
     "dependencies": {
+      "json": "github:systemjs/plugin-json@^0.1.2",
       "mithril": "npm:mithril@^0.2.4"
     },
     "devDependencies": {

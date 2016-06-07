@@ -5,7 +5,7 @@ export default class Nav {
   constructor (contents = []) {
     // contents must be m() components
     this.contents = contents;
-    this.controller = => this;
+    this.controller = () => this;
   }
 
   view (controller, args) {

@@ -25,7 +25,7 @@ import SignUpForm from './forms/form_logic/SignUpForm';
 
 // import the content inside the logic component, they might be 1 to 1...
 // form content
-import WaiverFormContent from './forms/form_content/WaiverFormContent.json';
+import WaiverFormContent from './forms/form_content/WaiverFormContent.json!';
 
 // modals are better for forms on pc, but pages are better for mobile...
 // is there an optimization to explore?
