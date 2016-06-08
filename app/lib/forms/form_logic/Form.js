@@ -15,7 +15,13 @@ export default class Form {
       'canvas': (opts) => { return new CanvasComponent(opts); }
     };
 
-    this.inputs = fields.map(this.generateInput.bind(this));
+    var inputs = fields.map(this.generateInput.bind(this));
+    console.log(inputs);
+    var clone = inputs.slice(0);
+    this.form = this.generateForm.call(this, clone);
+    this.inputs = inputs;
+    console.log(this.form);
+    console.log(this.inputs);
 
     this.controller = () => this;
   }
@@ -28,11 +34,10 @@ export default class Form {
     return m('div.button.submit', {onclick: this.submit.bind(this)}, text);
   }
 
-  generateForm () {
-    // modify trailing elements via form.push, beginning elements via form.unshift
-    let form = this.inputs;
-    form.push(this.generateSubmit());
-    return form;
+  generateForm (input_dup) {
+    // modify trailing elements via form.concat
+    let fullform = input_dup.push(this.generateSubmit.call(this));
+    return fullform;
   }
 
   submit () {
@@ -40,6 +45,7 @@ export default class Form {
       return el.isValid();
     });
     const values = this.inputs.reduce((o, el) => {
+      console.log(el);
       Object.assign(o, el.getVal());
       return o;
     }, {});
@@ -49,7 +55,7 @@ export default class Form {
   }
 
   view (controller, args) {
-    return m('form.waiver', controller.generateForm.call(controller));
+    return m('form.waiver', this.form);
   }
 
 }
